@@ -1,3 +1,7 @@
+package manager;
+
+import java.util.ArrayList;
+
 public class Eventos{
     private ArrayList<Evento> eventos;
 
@@ -6,7 +10,7 @@ public class Eventos{
     }
 
     public Eventos(ArrayList<Evento> e){
-        eventos = new ArrayList<Evento>(E);
+        eventos = new ArrayList<Evento>(e);
     }
 
     public void setEvento(Evento e){

@@ -1,3 +1,5 @@
+package manager;
+
 import org.snmp4j.smi.*;
 
 public class Evento{
@@ -5,35 +7,35 @@ public class Evento{
     private int duracao;
     private OctetString deltaT;
     private OctetString deltaLimite;
-    boolan passou;
+    boolean passou;
 
     public Evento(){
-        mome = "";
+        nome = "";
         duracao = 0;
         deltaT = new OctetString();
-        deltaLimite = OctetString();
+        deltaLimite = new OctetString();
         passou = false;
     }
 
-    pulbic Evento(String n, int d, OctetString dt, OctetString dl, boolean p){
+    public Evento(String n, int d, OctetString dt, OctetString dl, boolean p){
         nome = n;
         duracao = d;
-        deltaT = dt.clone();
-        deltaLimite = dl.clone();
+        deltaT = new OctetString(dt);
+        deltaLimite = new OctetString(dl);
         passou = p;
     }
 
     public String getNome(){ return nome; }
     public int getDuracao(){ return duracao; }
-    public OctetString getDeltaT(){ return deltaT.clone(); }
-    public OctetString getDeltaLimite(){ return deltaLimite.clone(); }
+    public OctetString getDeltaT(){ return new OctetString(deltaT); }
+    public OctetString getDeltaLimite(){ return new OctetString(deltaLimite); }
     public boolean getPassou(){ return passou; }
 
     public void setNome(String n){ nome = n; }
-    public void setDuracao(int d){ durcao = d; }
+    public void setDuracao(int d){ duracao = d; }
     public  void setDeltaT(OctetString dt){ deltaT = new OctetString(dt); }
     public  void setDeltaLimite(OctetString dl){ deltaT = new OctetString(dl); }
-    public void setPassou(boolan p){ passou = p; }
+    public void setPassou(boolean p){ passou = p; }
 
     public void decrDucacao(){ duracao--; }
 }
