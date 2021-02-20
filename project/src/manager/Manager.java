@@ -26,6 +26,11 @@ public class Manager {
     datalimite
      */
 
+    /*Falta :
+    Ir buscar os eventos à mib para ver o Id de último evento
+    Acabar a função insert
+    Função de procurar um evento especifico dando o nome do evento?
+     */
 
     public ResponseEvent set(OID oid, String val) throws IOException
     {
@@ -68,7 +73,7 @@ public class Manager {
         throw new RuntimeException("GET timed out");
     }
 
-    public void insert(int id /*, evento */) {
+    public void insert(int id /*, evento */) { //insere evento na MIB
 
        // set();
         
@@ -77,7 +82,7 @@ public class Manager {
     private Target getTargetForWrite()
     {
         CommunityTarget target = new CommunityTarget();
-        target.setCommunity(new OctetString("private"));
+        target.setCommunity(new OctetString("public")); //verificar se tem de ser public ou private
         target.setVersion(SnmpConstants.version2c);
         target.setAddress(GenericAddress.parse("127.0.0.1/3003"));
         target.setRetries(2);
