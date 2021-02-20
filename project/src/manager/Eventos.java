@@ -1,5 +1,11 @@
 package manager;
 
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.JsonGenerationException;
+
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Eventos{
@@ -21,8 +27,51 @@ public class Eventos{
         return eventos.get(i);
     }
 
+    public ArrayList<Evento>getEvento(){
+        return new ArrayList<Evento>(eventos);
+    }
+
     public int search(Evento e){
 
         return eventos.indexOf(e);
+    }
+
+    public void saveEventos(){
+        ObjectMapper mapper = new ObjectMapper();
+
+        try{
+            File json = new File("/home/diogo/Desktop/GestãodeRedes/TP3/GR_TP3/project/eventosDB/eventos.json");
+           Eventos e = new Eventos(eventos);
+            mapper.defaultPrettyPrintingWriter().writeValue(json, e);
+        }
+        catch (JsonGenerationException ge) {
+            ge.printStackTrace();
+        }
+        catch (JsonMappingException me) {
+            me.printStackTrace();
+        }
+        catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+    }
+
+    public void loadEventos(String filename){
+        ObjectMapper mapper = new ObjectMapper();
+
+        try{
+            File json = new File("/home/diogo/Desktop/GestãodeRedes/TP3/GR_TP3/project/eventosDB/eventos.json");
+           Eventos e = mapper.readValue(json, Eventos.class);
+
+            eventos = new ArrayList<Evento>(e.getEvento());
+        }
+        catch (JsonGenerationException ge) {
+            ge.printStackTrace();
+        }
+        catch (JsonMappingException me) {
+            me.printStackTrace();
+        }
+        catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
     }
 }
