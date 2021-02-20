@@ -1,0 +1,176 @@
+GR-EVENTS-MIB DEFINITIONS ::= BEGIN
+
+IMPORTS
+	enterprises,
+	MODULE-IDENTITY,
+	OBJECT-TYPE,
+	NOTIFICATION-TYPE
+		FROM SNMPv2-SMI
+	DisplayString,
+	DateAndTime
+		FROM SNMPv2-TC
+	OBJECT-GROUP,
+	NOTIFICATION-GROUP
+		FROM SNMPv2-CONF;
+
+greventsMIB MODULE-IDENTITY
+	LAST-UPDATED "202102161438Z"	-- Feb 16, 2021, 2:38:00 PM
+	ORGANIZATION ""
+	CONTACT-INFO
+		""
+	DESCRIPTION
+		""
+	REVISION "202102161438Z"	-- Feb 16, 2021, 2:38:00 PM
+	DESCRIPTION
+		"Initial version."
+	-- 1.3.6.1.4.1.1
+	::= { enterprises 1 }
+
+
+eventsTable OBJECT-TYPE
+	SYNTAX  SEQUENCE OF EventsMIBEntry
+	MAX-ACCESS not-accessible
+	STATUS  current
+	DESCRIPTION
+		""
+	-- 1.3.6.1.4.1.1.1
+	::= { greventsMIB 1 }
+
+
+eventsMIBEntry OBJECT-TYPE
+	SYNTAX  EventsMIBEntry
+	MAX-ACCESS not-accessible
+	STATUS  current
+	DESCRIPTION
+		""
+	INDEX {
+		id }
+	-- 1.3.6.1.4.1.1.1.1
+	::= { eventsTable 1 }
+
+
+EventsMIBEntry ::= SEQUENCE {
+
+	id         INTEGER,
+	nome       DisplayString,
+	duracao    INTEGER,
+	deltaT     DateAndTime,
+	dataLimite DateAndTime,
+	passou     INTEGER }
+
+
+id OBJECT-TYPE
+	SYNTAX  INTEGER (0..1000 | 0)
+	MAX-ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Identificador de um evento"
+	-- 1.3.6.1.4.1.1.1.1.1
+	::= { eventsMIBEntry 1 }
+
+
+nome OBJECT-TYPE
+	SYNTAX  DisplayString
+	MAX-ACCESS read-write
+	STATUS  current
+	DESCRIPTION
+		"Nome de um evento"
+	-- 1.3.6.1.4.1.1.1.1.2
+	::= { eventsMIBEntry 2 }
+
+
+duracao OBJECT-TYPE
+	SYNTAX  INTEGER
+	MAX-ACCESS read-write
+	STATUS  current
+	DESCRIPTION
+		"Duração de um evento em minutos"
+	-- 1.3.6.1.4.1.1.1.1.3
+	::= { eventsMIBEntry 3 }
+
+
+deltaT OBJECT-TYPE
+	SYNTAX  DateAndTime
+	MAX-ACCESS read-write
+	STATUS  current
+	DESCRIPTION
+		"Intervalo de tempo que falta/já passou para a data de um evento"
+	-- 1.3.6.1.4.1.1.1.1.4
+	::= { eventsMIBEntry 4 }
+
+
+dataLimite OBJECT-TYPE
+	SYNTAX  DateAndTime
+	MAX-ACCESS read-write
+	STATUS  current
+	DESCRIPTION
+		"Data limite antes de um evento ser removido"
+	-- 1.3.6.1.4.1.1.1.1.5
+	::= { eventsMIBEntry 5 }
+
+
+passou OBJECT-TYPE
+	SYNTAX  INTEGER (0..1)
+	MAX-ACCESS read-write
+	STATUS  current
+	DESCRIPTION
+		"Indicador se o ainda falta/já passou da data do evento"
+	-- 1.3.6.1.4.1.1.1.1.6
+	::= { eventsMIBEntry 6 }
+
+
+-- Conformance
+--
+
+greventsMIBConf OBJECT IDENTIFIER 
+	-- 1.3.6.1.4.1.1.3
+	::= { greventsMIB 3 }
+
+-- Groups
+--
+
+greventsMIBGroups OBJECT IDENTIFIER 
+	-- 1.3.6.1.4.1.1.3.1
+	::= { greventsMIBConf 1 }
+
+-- Compliances
+--
+
+greventsMIBCompliances OBJECT IDENTIFIER 
+	-- 1.3.6.1.4.1.1.3.2
+	::= { greventsMIBConf 2 }
+
+
+greventsMIB0 NOTIFICATION-TYPE
+	OBJECTS {
+		id}
+	STATUS  current
+	DESCRIPTION
+		""
+	-- 1.3.6.1.4.1.1.4
+	::= { greventsMIB 4 }
+
+greventsMIBBasicGroup OBJECT-GROUP
+	OBJECTS {
+		id,
+		nome,
+		duracao,
+		deltaT,
+		dataLimite,
+		passou }
+	STATUS  current
+	DESCRIPTION
+		"Basic objects."
+	-- 1.3.6.1.4.1.1.3.1.1
+	::= { greventsMIBGroups 1 }
+
+greventsMIBBasicEvents NOTIFICATION-GROUP
+	NOTIFICATIONS {
+		greventsMIB0 }
+	STATUS  current
+	DESCRIPTION
+		"Basic notifications."
+	-- 1.3.6.1.4.1.1.3.1.2
+	::= { greventsMIBGroups 2 }
+
+END
