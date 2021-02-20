@@ -1,0 +1,39 @@
+import org.snmp4j.OctetString;
+
+public class Evento{
+    private String nome;
+    private int duracao;
+    private OctetString deltaT;
+    private OctetString deltaLimite;
+    boolan passou;
+
+    public Evento(){
+        mome = "";
+        duracao = 0;
+        deltaT = new OctetString();
+        deltaLimite = OctetString();
+        passou = false;
+    }
+
+    pulbic Evento(String n, int d, OctetString dt, OctetString dl, boolean p){
+        nome = n;
+        duracao = d;
+        deltaT = dt.clone();
+        deltaLimite = dl.clone();
+        passou = p;
+    }
+
+    public String getNome(){ return nome; }
+    public int getDuracao(){ return duracao; }
+    public OctetString getDeltaT(){ return deltaT.clone(); }
+    public OctetString getDeltaLimite(){ return deltaLimite.clone(); }
+    public boolean getPassou(){ return passou; }
+
+    public void setNome(String n){ nome = n; }
+    public void setDuracao(int d){ durcao = d; }
+    public  void setDeltaT(OctetString dt){ deltaT = new OctetString(dt); }
+    public  void setDeltaLimite(OctetString dl){ deltaT = new OctetString(dl); }
+    public void setPassou(boolan p){ passou = p; }
+
+    public void decrDucacao(){ duracao--; }
+}
