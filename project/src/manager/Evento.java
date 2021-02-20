@@ -1,4 +1,4 @@
-import org.snmp4j.OctetString;
+import org.snmp4j.smi.*;
 
 public class Evento{
     private String nome;
