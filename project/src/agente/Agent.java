@@ -8,6 +8,7 @@ import java.io.*;
 import java.text.*;
 import java.util.*;
 
+import agente.snmp.Modules;
 import org.snmp4j.*;
 import org.snmp4j.agent.*;
 import org.snmp4j.agent.cfg.*;
@@ -32,7 +33,7 @@ import org.snmp4j.agent.mo.MOTableRowEvent;
 import org.snmp4j.agent.mo.snmp.TimeStamp;
 import org.snmp4j.agent.mo.MOMutableTableRow;
 import org.snmp4j.agent.mo.MOFactory;
-import agente.snmp.*;
+
 //|:AgenPro|=import
 //|AgenPro:|
 
@@ -44,7 +45,7 @@ public class Agent implements VariableProvider {
   }
   
   private static final String DEFAULT_CL_PARAMETERS = "-c[s{=Agent.cfg}] -bc[s{=Agent.bc}]";
-  private static final String DEFAULT_CL_COMMANDS = "#address[s{=udp:127.0.0.1/3003}<(udp|tcp):.*[/[0-9]+]?>] .."; //mudar a porta do udp
+  private static final String DEFAULT_CL_COMMANDS = "#address[s{=udp:127.0.0.1/3003}<(udp|tcp):.*[/[0-9]+]?>] ..";
 
   private LogAdapter logger = LogFactory.getLogger(Agent.class);
 

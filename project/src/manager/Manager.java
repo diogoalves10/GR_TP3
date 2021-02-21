@@ -159,7 +159,7 @@ public class Manager {
         ZonedDateTime ZoneL = CalL.toZonedDateTime();
         GregorianCalendar CalT = new GregorianCalendar(GregorianCaledar.makeCalendar(evento.getDeltaT()));
         ZonedDateTime ZoneT = CalT.toZonedDateTime();
-        */
+
         DateAndTime TimeT = DateAndTime.parse(evento.getDeltaT());
         DateAndTime TimeL = DateAndTime.parse(evento.getDeltaLimite());
         boolean passou = false;
@@ -169,6 +169,8 @@ public class Manager {
 
 
         set(OIDsEventosTablePassou[0],passou.toString());
+
+         */
     }
 
     private Target getTargetForWrite()
@@ -182,6 +184,7 @@ public class Manager {
 
         return target;
     }
+
 
 
 }
