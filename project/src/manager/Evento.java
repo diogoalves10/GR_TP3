@@ -12,16 +12,16 @@ public class Evento{
     public Evento(){
         nome = "";
         duracao = 0;
-        deltaT = new OctetString();
-        deltaLimite = new OctetString();
+        deltaT = "";
+        deltaLimite = "";
 
     }
 
     public Evento(String n, int d, String dt, String dl, boolean p){
         nome = n;
         duracao = d;
-        deltaT = new OctetString(dt);
-        deltaLimite = new OctetString(dl);
+        deltaT = dt;
+        deltaLimite =dl;
 
     }
 
