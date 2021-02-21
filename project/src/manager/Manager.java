@@ -1,6 +1,7 @@
 package manager;
 
 
+import org.codehaus.jackson.map.deser.std.DateDeserializer;
 import org.snmp4j.CommunityTarget;
 import org.snmp4j.PDU;
 import org.snmp4j.Snmp;
@@ -153,9 +154,21 @@ public class Manager {
         set(OIDsEventosTableDeltaT[0],evento.getDeltaT().toString());
         set(OIDsEventosTableDataLimite[0],evento.getDeltaLimite().toString());
 
-        String passou = "";
+        /*
+        GregorianCalendar CalL = new GregorianCalendar(GregorianCaledar.makeCalendar(evento.getDeltaLimite()));
+        ZonedDateTime ZoneL = CalL.toZonedDateTime();
+        GregorianCalendar CalT = new GregorianCalendar(GregorianCaledar.makeCalendar(evento.getDeltaT()));
+        ZonedDateTime ZoneT = CalT.toZonedDateTime();
+        */
+        DateAndTime TimeT = DateAndTime.parse(evento.getDeltaT());
+        DateAndTime TimeL = DateAndTime.parse(evento.getDeltaLimite());
+        boolean passou = false;
+        if(TimeL.compareTo(TimeT) <= 0){
+            passou = true;
+        }
 
-        set(OIDsEventosTablePassou[0],"");
+
+        set(OIDsEventosTablePassou[0],passou.toString());
     }
 
     private Target getTargetForWrite()
