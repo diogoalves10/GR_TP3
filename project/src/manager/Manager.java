@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
+import java.time.LocalDateTime;
 
 public class Manager {
     private Snmp snmp = null;
@@ -154,6 +155,13 @@ public class Manager {
         set(OIDsEventosTableDeltaT[0],evento.getDeltaT());
         set(OIDsEventosTableDataLimite[0],evento.getDeltaLimite());
 
+        boolean passou =  false;
+        LocalDateTime DataT = LocalDateTime.parse(evento.getDeltaT());
+        LocalDateTime DataL = LocalDateTime.parse(evento.getDeltaLimite());
+
+        if(DataL.isAfter(DataT)){
+            passou = true;
+        }
 
         set(OIDsEventosTablePassou[0],passou.toString());
 
