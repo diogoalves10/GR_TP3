@@ -27,7 +27,7 @@ public class Eventos{
         return eventos.get(i);
     }
 
-    public ArrayList<Evento>getEvento(){
+    public ArrayList<Evento>getEventos(){
         return new ArrayList<Evento>(eventos);
     }
 
@@ -55,14 +55,14 @@ public class Eventos{
         }
     }
 
-    public void loadEventos(String filename){
+    public void loadEventos(){
         ObjectMapper mapper = new ObjectMapper();
 
         try{
             File json = new File("/home/diogo/Desktop/GestãodeRedes/TP3/GR_TP3/project/eventosDB/eventos.json");
            Eventos e = mapper.readValue(json, Eventos.class);
 
-            eventos = new ArrayList<Evento>(e.getEvento());
+            eventos = new ArrayList<Evento>(e.getEventos());
         }
         catch (JsonGenerationException ge) {
             ge.printStackTrace();

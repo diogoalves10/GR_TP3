@@ -36,11 +36,6 @@ public class Manager {
     datalimite
      */
 
-    /*Falta :
-    Ir buscar os eventos à mib para ver o Id de último evento -> feito com o getBULK
-    Acabar a função insert
-    Função de procurar um evento especifico dando o nome do evento?
-     */
 
     OID[] OIDsEventosTable = {
             new OID(new int[] {1,3,6,1,4,1,1,1}), // OID tabela de eventos
@@ -92,7 +87,7 @@ public class Manager {
 
     }
 
-    private TreeMap<Integer,String> vbToArray (List<VariableBinding[]> vbs) { //transforma o list de variableBinding  num treemap
+    public TreeMap<Integer,String> vbToArray (List<VariableBinding[]> vbs) { //transforma o list de variableBinding  num treemap
 
         TreeMap <Integer,String> array = new TreeMap<>();
 
@@ -148,22 +143,49 @@ public class Manager {
     }
 
     public void insert(Integer id , Evento evento) throws IOException { //insere evento na MIB
-        //int size= vbToArray(getBulk(OIDsEventosTable)).size() ;
         set(OIDsEventosTableId[0],id.toString());
         set(OIDsEventosTableNome[0],evento.getNome());
         set(OIDsEventosTableDuracao[0],evento.getDuracao().toString());
         set(OIDsEventosTableDeltaT[0],evento.getDeltaT());
         set(OIDsEventosTableDataLimite[0],evento.getDeltaLimite());
 
-        boolean passou =  false;
+        Boolean passou =  false;
         LocalDateTime DataT = LocalDateTime.parse(evento.getDeltaT());
         LocalDateTime DataL = LocalDateTime.parse(evento.getDeltaLimite());
 
         if(DataL.isAfter(DataT)){
             passou = true;
         }
-
         set(OIDsEventosTablePassou[0],passou.toString());
+
+
+    }
+
+    public void searchEvent(String nome) throws IOException {
+        TreeMap<Integer,String> nomes = new TreeMap<Integer, String>(vbToArray(getBulk(OIDsEventosTableNome)));
+        TreeMap<Integer,String> duracao = new TreeMap<Integer, String>(vbToArray(getBulk(OIDsEventosTableDuracao)));
+        TreeMap<Integer,String> deltaT = new TreeMap<Integer, String>(vbToArray(getBulk(OIDsEventosTableDeltaT)));
+        TreeMap<Integer,String> dataLimite = new TreeMap<Integer, String>(vbToArray(getBulk(OIDsEventosTableDataLimite)));
+
+        int key;
+
+        for(Integer i : nomes.keySet()){
+            String aux = nomes.get(i);
+            if(aux.equals(nome)){
+                key = i;
+                System.out.println("ID: "+key
+                        + "\nNome: " + nomes.get(key)+
+                        "\nDuração: " + duracao.get(key)
+                        + "\nIntervalo de tempo que falta/já passou para a data de um evento: "+ deltaT.get(key)
+                        + "\nData limite da duração de um evento: "+ dataLimite.get(key));
+                break;
+            }
+            else{
+                System.out.println("O evento não existe");
+            }
+
+        }
+
 
 
     }
