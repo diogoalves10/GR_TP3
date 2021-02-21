@@ -5,8 +5,8 @@ import org.snmp4j.smi.*;
 public class Evento{
     private String nome;
     private Integer duracao;
-    private OctetString deltaT;
-    private OctetString deltaLimite;
+    private String deltaT;
+    private String deltaLimite;
 
 
     public Evento(){
@@ -17,7 +17,7 @@ public class Evento{
 
     }
 
-    public Evento(String n, int d, OctetString dt, OctetString dl, boolean p){
+    public Evento(String n, int d, String dt, String dl, boolean p){
         nome = n;
         duracao = d;
         deltaT = new OctetString(dt);
@@ -27,14 +27,14 @@ public class Evento{
 
     public String getNome(){ return nome; }
     public Integer getDuracao(){ return duracao; }
-    public OctetString getDeltaT(){ return new OctetString(deltaT); }
-    public OctetString getDeltaLimite(){ return new OctetString(deltaLimite); }
+    public String getDeltaT(){ return deltaT; }
+    public String getDeltaLimite(){ return deltaLimite; }
 
 
     public void setNome(String n){ nome = n; }
     public void setDuracao(int d){ duracao = d; }
-    public  void setDeltaT(OctetString dt){ deltaT = new OctetString(dt); }
-    public  void setDeltaLimite(OctetString dl){ deltaT = new OctetString(dl); }
+    public  void setDeltaT(String dt){ deltaT = dt; }
+    public  void setDeltaLimite(String dl){ deltaT = dl; }
 
     public void decrDucacao(){ duracao--; }
 }
