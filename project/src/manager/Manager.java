@@ -1,6 +1,5 @@
 package manager;
 
-
 import org.codehaus.jackson.map.deser.std.DateDeserializer;
 import org.snmp4j.CommunityTarget;
 import org.snmp4j.PDU;
