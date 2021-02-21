@@ -151,26 +151,13 @@ public class Manager {
         set(OIDsEventosTableId[0],id.toString());
         set(OIDsEventosTableNome[0],evento.getNome());
         set(OIDsEventosTableDuracao[0],evento.getDuracao().toString());
-        set(OIDsEventosTableDeltaT[0],evento.getDeltaT().toString());
-        set(OIDsEventosTableDataLimite[0],evento.getDeltaLimite().toString());
-
-        /*
-        GregorianCalendar CalL = new GregorianCalendar(GregorianCaledar.makeCalendar(evento.getDeltaLimite()));
-        ZonedDateTime ZoneL = CalL.toZonedDateTime();
-        GregorianCalendar CalT = new GregorianCalendar(GregorianCaledar.makeCalendar(evento.getDeltaT()));
-        ZonedDateTime ZoneT = CalT.toZonedDateTime();
-
-        DateAndTime TimeT = DateAndTime.parse(evento.getDeltaT());
-        DateAndTime TimeL = DateAndTime.parse(evento.getDeltaLimite());
-        boolean passou = false;
-        if(TimeL.compareTo(TimeT) <= 0){
-            passou = true;
-        }
+        set(OIDsEventosTableDeltaT[0],evento.getDeltaT());
+        set(OIDsEventosTableDataLimite[0],evento.getDeltaLimite());
 
 
         set(OIDsEventosTablePassou[0],passou.toString());
 
-         */
+
     }
 
     private Target getTargetForWrite()
