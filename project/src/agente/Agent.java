@@ -1,20 +1,28 @@
-package agente;
+ 
+
 
 
 //|:AgenPro|=_BEGIN
 //|AgenPro:|
+package agente;
+
+import agente.snmp.*;
 
 import java.io.*;
 import java.text.*;
 import java.util.*;
 
-import agente.snmp.Modules;
 import org.snmp4j.*;
 import org.snmp4j.agent.*;
 import org.snmp4j.agent.cfg.*;
 import org.snmp4j.agent.io.*;
 import org.snmp4j.agent.io.prop.*;
+import org.snmp4j.agent.mo.snmp.StorageType;
+import org.snmp4j.agent.mo.snmp.VacmMIB;
+import org.snmp4j.agent.security.MutableVACM;
 import org.snmp4j.mp.*;
+import org.snmp4j.security.SecurityLevel;
+import org.snmp4j.security.SecurityModel;
 import org.snmp4j.smi.*;
 import org.snmp4j.transport.*;
 import org.snmp4j.util.*;
@@ -84,9 +92,36 @@ public class Agent implements VariableProvider {
     };
     MessageDispatcher messageDispatcher = new MessageDispatcherImpl();
     addListenAddresses(messageDispatcher, (List)args.get("address"));
+
+    VacmMIB vacm = new VacmMIB(moServers);
+    vacm.addGroup(SecurityModel.SECURITY_MODEL_SNMPv1,
+            new OctetString("public"),
+            new OctetString("v1v2group"),
+            StorageType.nonVolatile);
+    vacm.addGroup(SecurityModel.SECURITY_MODEL_SNMPv2c,
+            new OctetString("public"),
+            new OctetString("v1v2group"),
+            StorageType.nonVolatile);
+    vacm.addAccess(new OctetString("v1v2group"), new OctetString(),
+            SecurityModel.SECURITY_MODEL_ANY,
+            SecurityLevel.NOAUTH_NOPRIV,
+            MutableVACM.VACM_MATCH_EXACT,
+            new OctetString("fullReadView"),
+            new OctetString("fullWriteView"),
+            new OctetString("fullNotifyView"),
+            StorageType.nonVolatile);
+    vacm.addViewTreeFamily(new OctetString("fullReadView"), new OID("1.3"),
+            new OctetString(), VacmMIB.vacmViewIncluded,
+            StorageType.nonVolatile);
+    vacm.addViewTreeFamily(new OctetString("fullWriteView"), new OID("1.3"),
+            new OctetString(), VacmMIB.vacmViewIncluded,
+            StorageType.nonVolatile);
+    vacm.addViewTreeFamily(new OctetString("fullNotifyView"), new OID("1.3"),
+            new OctetString(), VacmMIB.vacmViewIncluded,
+            StorageType.nonVolatile);
     agent = new AgentConfigManager(new OctetString(MPv3.createLocalEngineID()),
                                    messageDispatcher,
-                                   null,
+                                   vacm,
                                    moServers,
                                    ThreadPool.create("Agent", 3),
                                    configurationFactory,

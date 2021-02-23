@@ -21,9 +21,7 @@ public class Modules implements MOGroup {
   private static final LogAdapter LOGGER = 
       LogFactory.getLogger(Modules.class);
 
-  private SNMPv2Conf sNMPv2Conf;
-  private SNMPv2Smi sNMPv2Smi;
-  private SNMPv2Tc sNMPv2Tc;
+  private GrEventsMib grEventsMib;
 
   private MOFactory factory;
 
@@ -31,17 +29,13 @@ public class Modules implements MOGroup {
 //--AgentGen END
 
   public Modules() {
-   sNMPv2Conf = new SNMPv2Conf(); 
-   sNMPv2Smi = new SNMPv2Smi(); 
-   sNMPv2Tc = new SNMPv2Tc(); 
+   grEventsMib = new GrEventsMib(); 
 //--AgentGen BEGIN=_DEFAULTCONSTRUCTOR
 //--AgentGen END
   }
 
   public Modules(MOFactory factory) {
-   sNMPv2Conf = new SNMPv2Conf(factory); 
-   sNMPv2Smi = new SNMPv2Smi(factory); 
-   sNMPv2Tc = new SNMPv2Tc(factory); 
+   grEventsMib = new GrEventsMib(factory); 
 //--AgentGen BEGIN=_CONSTRUCTOR
 //--AgentGen END
   } 
@@ -49,29 +43,19 @@ public class Modules implements MOGroup {
   public void registerMOs(MOServer server, OctetString context) 
     throws DuplicateRegistrationException 
   {
-	  sNMPv2Conf.registerMOs(server, context);
-	  sNMPv2Smi.registerMOs(server, context);
-	  sNMPv2Tc.registerMOs(server, context);
+	  grEventsMib.registerMOs(server, context);
 //--AgentGen BEGIN=_registerMOs
 //--AgentGen END
   }
 
   public void unregisterMOs(MOServer server, OctetString context) {
-	  sNMPv2Conf.unregisterMOs(server, context);
-	  sNMPv2Smi.unregisterMOs(server, context);
-	  sNMPv2Tc.unregisterMOs(server, context);
+	  grEventsMib.unregisterMOs(server, context);
 //--AgentGen BEGIN=_unregisterMOs
 //--AgentGen END
   }
 
-  public SNMPv2Conf getSNMPv2Conf() {
-    return sNMPv2Conf;
-  }
-  public SNMPv2Smi getSNMPv2Smi() {
-    return sNMPv2Smi;
-  }
-  public SNMPv2Tc getSNMPv2Tc() {
-    return sNMPv2Tc;
+  public GrEventsMib getGrEventsMib() {
+    return grEventsMib;
   }
 
 
