@@ -20,13 +20,12 @@ public class AgentCon {
     public static final OID oidGrEventsMibTable =
             new OID(new int[] { 1,3,6,1,4,1,1,1});
 
-    public Evento (){
-
-    }
 
     public void updteMIB(){
         insertEvents();
         Eventos evs = new Eventos();
+        Evento e = new Evento();
+        Data data = new Data();
         MOTable table = mib.getEventsMIBEntry();
         for(Integer i=1; i<=mib.getEventsMIBEntry().getModel().getRowCount();i++){
            MOTableRow row =  table.getModel().getRow(new OID(i.toString()));
@@ -35,6 +34,34 @@ public class AgentCon {
             Variable dl = row.getValue(5); //dataLimite
             Variable p = row.getValue(6); //passou
 
+            Data dataDt = new Data();
+            dataDt.parseData(dt.toString());
+
+            Data dataDl = new Data();
+            dataDl.parseData(dl.toString());
+
+            if(p.toInt() == 0 && !(dataDt.isZero())){
+              String dtRes = dataDt.updateData(dt.toString());
+
+            }
+            if(p.toInt() == 0 && (dataDt.isZero())){
+                Integer duracaoI = duracao.toInt();
+                duracaoI --;
+               String duracaoS = duracaoI.toString();
+
+            }
+            if(duracao.toInt() == 0){
+               Integer pI = 1;
+               String pS = pI.toString();
+            }
+            else if (p.toInt() == 1) {
+                String dtRes = dataDt.updateData(dt.toString());
+                String dlRes = dataDl.updateData(dl.toString());
+            }
+            if(dataDl.isZero()){
+                //apagar a row
+            }
+            
         }
     }
 
