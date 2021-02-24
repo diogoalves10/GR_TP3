@@ -29,10 +29,19 @@ public class AgentCon {
         MOTable table = mib.getEventsMIBEntry();
         for(Integer i=1; i<=mib.getEventsMIBEntry().getModel().getRowCount();i++){
            MOTableRow row =  table.getModel().getRow(new OID(i.toString()));
+           Variable id = row.getValue(1);
+           Variable nome = row.getValue(2);
+           Variable duracao = row.getValue(3); //duracao
             Variable dt =  row.getValue(4); //deltaT
-            Variable duracao = row.getValue(3); //duracao
             Variable dl = row.getValue(5); //dataLimite
             Variable p = row.getValue(6); //passou
+
+            e.setId(id.toInt());
+            e.setNome(nome.toString());
+            e.setDuracao(duracao.toInt());
+            e.setDeltaT(dt.toString());
+            e.setDeltaLimite(dl.toString());
+            e.setPassou(duracao.toInt());
 
             Data dataDt = new Data();
             dataDt.parseData(dt.toString());
@@ -42,32 +51,42 @@ public class AgentCon {
 
             if(p.toInt() == 0 && !(dataDt.isZero())){
               String dtRes = dataDt.decrementaData(dt.toString());
+              e.setDeltaT(dtRes);
 
             }
             if(p.toInt() == 0 && (dataDt.isZero())){
                 Integer duracaoI = duracao.toInt();
                 duracaoI --;
                String duracaoS = duracaoI.toString();
-
+               e.setDuracao(Integer.parseInt(duracaoS));
             }
+
             if(duracao.toInt() == 0){
                Integer pI = 1;
                String pS = pI.toString();
+               e.setPassou(Integer.parseInt(pS));
             }
             else if (p.toInt() == 1) {
                 String dtRes = dataDt.incrementaData(dt.toString());
                 String dlRes = dataDl.decrementaData(dl.toString());
+                e.setDeltaT(dtRes);
+                e.setDeltaLimite(dlRes);
             }
             if(dataDl.isZero()){
                 table.removeRow(new OID(i.toString()));
             }
             else {
                 //atualizar os valores na linha de cada coluna
+
+                evs.setEvento(e);
             }
             
         }
+        evs.saveEventos(); //guardar a table no ficheiro json
+
+
     }
-    
+
     public void insertEvents(){ //fazer a população da mib
         Eventos evs = new Eventos();
         evs.loadEventos();

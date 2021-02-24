@@ -43,7 +43,7 @@ public class Evento{
 
 
     public void setNome(String n){ nome = n; }
-    public void setDuracao(int d){ duracao = d; }
+
     public  void setDeltaT(String dt){ deltaT = dt; }
     public  void setDeltaLimite(String dl){ deltaT = dl; }
     public void setId(Integer id) { this.id = id; }
