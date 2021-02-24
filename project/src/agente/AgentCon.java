@@ -55,8 +55,8 @@ public class AgentCon {
                String pS = pI.toString();
             }
             else if (p.toInt() == 1) {
-                String dtRes = dataDt.updateData(dt.toString());
-                String dlRes = dataDl.updateData(dl.toString());
+                String dtRes = dataDt.incrementaData(dt.toString());
+                String dlRes = dataDl.decrementaData(dl.toString());
             }
             if(dataDl.isZero()){
                 //apagar a row

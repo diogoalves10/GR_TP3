@@ -36,6 +36,9 @@ public class Data {
         }
         return false;
     }
+    public String toString(){
+        return ano + "-" + mes + "-" + semana + "-" + dia + "-" + hora + "-" + minuto;
+    }
     public void decrementaAno(){
         ano--;
         if(ano < 0){
@@ -81,12 +84,63 @@ public class Data {
     public void decrementa(){
         decrementaMinuto();
     }
-    public String updateData(String data){
+    public String decrementaData(String data){
         String result = "";
         parseData(data);
 
         decrementa();
 
-        return ano + "-" + mes + "-" + semana + "-" + dia + "-" + hora + "-" + minuto;
+        return this.toString();
     }
+    public void incrementaAno(){
+        ano++;
+    }
+    public void incrementaMes(){
+        mes++;
+        if(mes > 11){
+            mes = 0;
+            incrementaAno();
+        }
+    }
+    public void incrementaSemana(){
+        semana++;
+        if(semana > 3){
+            semana = 0;
+            incrementaMes();
+        }
+    }
+    public void incrementaDia(){
+        dia++;
+        if(dia > 30){
+            dia = 0;
+            incrementaSemana();
+        }
+    }
+    public void incrementaHora(){
+        hora++;
+        if(hora > 23){
+            hora = 0;
+            incrementaDia();
+        }
+    }
+    public void incrementaMinuto(){
+        minuto++;
+        if(minuto > 59){
+            minuto = 0;
+            incrementaHora();
+        }
+    }
+    public void incrementa(){
+        incrementaMinuto();
+    }
+
+    public String incrementaData(String data){
+        String result = "";
+        parseData(data);
+
+        incrementa();
+
+        return this.toString();
+    }
+
 }
