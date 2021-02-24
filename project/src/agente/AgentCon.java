@@ -41,7 +41,7 @@ public class AgentCon {
             dataDl.parseData(dl.toString());
 
             if(p.toInt() == 0 && !(dataDt.isZero())){
-              String dtRes = dataDt.updateData(dt.toString());
+              String dtRes = dataDt.decrementaData(dt.toString());
 
             }
             if(p.toInt() == 0 && (dataDt.isZero())){
@@ -59,12 +59,15 @@ public class AgentCon {
                 String dlRes = dataDl.decrementaData(dl.toString());
             }
             if(dataDl.isZero()){
-                //apagar a row
+                table.removeRow(new OID(i.toString()));
+            }
+            else {
+                //atualizar os valores na linha de cada coluna
             }
             
         }
     }
-
+    
     public void insertEvents(){ //fazer a população da mib
         Eventos evs = new Eventos();
         evs.loadEventos();
