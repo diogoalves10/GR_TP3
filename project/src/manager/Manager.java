@@ -1,19 +1,15 @@
 package manager;
 
-import org.codehaus.jackson.map.deser.std.DateDeserializer;
 import org.snmp4j.CommunityTarget;
 import org.snmp4j.PDU;
 import org.snmp4j.Snmp;
 import org.snmp4j.Target;
-import org.snmp4j.agent.mo.snmp.DateAndTime;
-import org.snmp4j.event.ResponseEvent;
 import org.snmp4j.mp.SnmpConstants;
 import org.snmp4j.smi.*;
 import org.snmp4j.transport.DefaultUdpTransportMapping;
 import org.snmp4j.util.DefaultPDUFactory;
 import org.snmp4j.util.TreeEvent;
 import org.snmp4j.util.TreeUtils;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -88,65 +84,6 @@ public class Manager {
         return  array;
     }
 
-    public ResponseEvent set(OID oid, String val) throws IOException
-    {
-        PDU pdu = new PDU();
-        VariableBinding varBind = new VariableBinding(oid,new OctetString(val));
-        pdu.add(varBind);
-        pdu.setType(PDU.SET);
-        pdu.setRequestID(new Integer32(1));
-        Target target=getTargetForWrite();
-
-        ResponseEvent event = snmp.set(pdu, target);
-        if(event != null)
-        {
-            System.out.println("\nResponse:\nGot Snmp Set Response from Agent");
-            System.out.println("Snmp Set Request = " + event.getRequest().getVariableBindings());
-            PDU responsePDU = event.getResponse();
-            System.out.println("\nresponsePDU = "+responsePDU);
-            if (responsePDU != null)
-            {
-                int errorStatus = responsePDU.getErrorStatus();
-                int errorIndex = responsePDU.getErrorIndex();
-                String errorStatusText = responsePDU.getErrorStatusText();
-                System.out.println("\nresponsePDU = "+responsePDU);
-                if (errorStatus == PDU.noError)
-                {
-                    System.out.println("Snmp Set Response = " + responsePDU.getVariableBindings());
-                }
-                else
-                {
-                    System.out.println("errorStatus = "+responsePDU);
-                    System.out.println("Error: Request Failed");
-                    System.out.println("Error Status = " + errorStatus);
-                    System.out.println("Error Index = " + errorIndex);
-                    System.out.println("Error Status Text = " + errorStatusText);
-                }
-            }
-
-            return event;
-        }
-        throw new RuntimeException("GET timed out");
-    }
-
-    public void insert(Integer id , Evento evento) throws IOException { //insere evento na MIB
-        set(OIDsEventosTableId[0],id.toString());
-        set(OIDsEventosTableNome[0],evento.getNome());
-        set(OIDsEventosTableDuracao[0],evento.getDuracao().toString());
-        set(OIDsEventosTableDeltaT[0],evento.getDeltaT());
-        set(OIDsEventosTableDataLimite[0],evento.getdataLimite());
-
-        Boolean passou =  false;
-        LocalDateTime DataT = LocalDateTime.parse(evento.getDeltaT());
-        LocalDateTime DataL = LocalDateTime.parse(evento.getdataLimite());
-
-        if(DataL.isAfter(DataT)){
-            passou = true;
-        }
-        set(OIDsEventosTablePassou[0],passou.toString());
-
-
-    }
 
     public void searchEvent(String nome) throws IOException {
         TreeMap<Integer,String> nomes = new TreeMap<Integer, String>(vbToArray(getBulk(OIDsEventosTableNome)));
