@@ -35,14 +35,15 @@ public class Eventos{
         eventos.remove(id-1);
     }
 
-    public void removeEventos(ArrayList<Evento> listaApagar){
-        for(Evento e : listaApagar){
-                eventos.remove(e);
-        }
-        for(int i = 0; i < eventos.size(); i++){
+    public void removeEventos(Evento apagarEvento){
+        eventos.remove(apagarEvento.getId()-1);
+        System.out.println("Removi o "+apagarEvento.getId());
+        for(Integer i =0; i<eventos.size();i++){
             eventos.get(i).setId(i+1);
         }
     }
+
+
 
     public int search(Evento e){
 

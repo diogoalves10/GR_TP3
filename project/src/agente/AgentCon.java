@@ -20,8 +20,8 @@ public class AgentCon {
         Eventos evs = new Eventos();
       // insertEvents(mib);
        evs.loadEventos();
-       ArrayList<Evento> listaApagar =  new ArrayList<Evento>();
-        
+       Evento listaApagar =  new Evento();
+        boolean apagar = false;
        /*
        atualiza-se o ficheiro por iteração
        guardar os ids para apagar num arrayList
@@ -33,38 +33,15 @@ public class AgentCon {
         */
 
         for(Integer i=1;i<=evs.getEventos().size();i++){ //verificar esta
-            Evento e = new Evento(evs.getEvento(i));
-            /*
-            // Integer id = mib.getEventsMIBEntry().getModel().getRow(new OID(i.toString())).getId().toInt();
-            Integer id = i;
-           String nome = mib.getEventsMIBEntry().getModel().getRow(new OID(i.toString())).getNome().toString();
-           Integer duracao = mib.getEventsMIBEntry().getModel().getRow(new OID(i.toString())).getDuracao().toInt();
-           String dt =  mib.getEventsMIBEntry().getModel().getRow(new OID(i.toString())).getDeltaT().toString();
-           String dl = mib.getEventsMIBEntry().getModel().getRow(new OID(i.toString())).getDataLimite().toString();
-           Integer p = mib.getEventsMIBEntry().getModel().getRow(new OID(i.toString())).getPassou().toInt();
+            Evento e = new Evento(evs.getEvento(i-1));
 
-           e.setId(i);
-            e.setNome(nome);
-            e.setDuracao(duracao);
-            e.setDeltaT(dt);
-            e.setdataLimite(dl);
-            e.setPassou(p);
-           */
+
             Integer id = e.getId();
             String nome = e.getNome();
             Integer duracao = e.getDuracao();
             String deltaT = e.getDeltaT();
             String dataLimite = e.getdataLimite();
             Integer passou = e.getPassou();
-
-            System.out.println("Id : "+id);
-            System.out.println("nome : "+nome);
-            System.out.println("Duracao : "+duracao);
-            System.out.println("DataT : "+deltaT);
-            System.out.println("DataL : "+dataLimite);
-            System.out.println("Passou : "+passou);
-
-
 
             Data dataDt = new Data();
             dataDt.parseData(deltaT);
@@ -85,17 +62,22 @@ public class AgentCon {
             if(passou == 0 && (dataDt.isZero())){
                e.setDuracao(duracao-1);
             }
-            if(duracao == 0){
+            if(duracao <= 0){
+               e.setDuracao(duracao);
                e.setPassou(1);
             }
-            else if (passou == 1) {
+            if (passou == 1) {
                 dtRes = dataDt.incrementaData(deltaT);
                 dlRes = dataDl.decrementaData(dataLimite);
+
                 e.setDeltaT(dtRes);
                 e.setdataLimite(dlRes);
+
             }
             if(dataDl.isZero()){
-               listaApagar.add(new Evento(e));
+
+               listaApagar=new Evento(e);
+               apagar=true;
             }
             else {
                 //atualizar os valores na linha de cada coluna
@@ -112,12 +94,14 @@ public class AgentCon {
                 mib.getEventsMIBEntry().getModel().getRow(
                         new OID (i.toString())).setPassou(new Integer32(pI));
 
+
                 evs.setEvento(new Evento(e),id);
             }
             
         }
-        evs.saveEventos("eventos.json"); //guardar a table no ficheiro json
-        if(listaApagar.size() > 0) {
+
+        if(apagar==true) {
+            System.out.println("Entrei no lista apagar");
             evs.removeEventos(listaApagar);
             evs.saveEventos("eventos.json");
             for (Integer j = 1; j <= mib.getEventsMIBEntry().getModel().getRowCount(); j++) {
@@ -125,6 +109,10 @@ public class AgentCon {
             }
             insertEvents(mib);
         }
+        else{
+            evs.saveEventos("eventos.json"); //guardar a table no ficheiro json
+        }
+
     }
 
     public void insertEvents(GrEventsMib mib){ //fazer a população da mib

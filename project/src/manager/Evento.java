@@ -40,6 +40,7 @@ public class Evento{
         duracao = e.getDuracao();
         deltaT = e.getDeltaT();
         dataLimite = e.getdataLimite();
+        passou = e.getPassou();
     }
 
     public String getNome(){ return nome; }

@@ -23,18 +23,6 @@ import java.time.LocalDateTime;
 public class Manager {
     private Snmp snmp = null;
 
-    //ler do ficheiro de configuração
-    //adicionar novos eventos
-
-
-    /*
-    Evento no ficheiro :
-    "nome" : nomedoficheiro
-    duracao:
-    deltaT
-    datalimite
-     */
-
 
     OID[] OIDsEventosTable = {
             new OID(new int[] {1,3,6,1,4,1,1,1}), // OID tabela de eventos
