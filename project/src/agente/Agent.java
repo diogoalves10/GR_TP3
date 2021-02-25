@@ -165,7 +165,7 @@ public class Agent implements VariableProvider {
     while(true) {
       try {
         agentCon.updateMIB(mib);
-        TimeUnit.SECONDS.sleep(1);
+        TimeUnit.SECONDS.sleep(60);
       } catch (InterruptedException ie){
         ie.printStackTrace();
       }
