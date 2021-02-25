@@ -61,6 +61,8 @@ public class Agent implements VariableProvider {
   protected MOServer server;
   private String configFile;
   private File bootCounterFile;
+  private GrEventsMib mib = new GrEventsMib(getFactory());
+  private AgentCon agentCon = new AgentCon();
 
   // supported MIBs
   protected Modules modules;
@@ -157,6 +159,11 @@ public class Agent implements VariableProvider {
     agent.setupProxyForwarder();
     // now continue agent setup and launch it.
     agent.run();
+
+    //agentCon.insertEvents(mib);
+    agentCon.updateMIB(mib);
+
+
   }
 
   /**

@@ -6,42 +6,49 @@ import agente.snmp.Modules;
 import manager.*;
 import org.snmp4j.agent.mo.MOTable;
 import org.snmp4j.agent.mo.MOTableRow;
+import org.snmp4j.smi.Integer32;
 import org.snmp4j.smi.OID;
+import org.snmp4j.smi.OctetString;
 import org.snmp4j.smi.Variable;
 
 import java.awt.image.AreaAveragingScaleFilter;
 import java.util.ArrayList;
 
 public class AgentCon {
+    /*
     Modules modules = new Modules();
-    GrEventsMib mib = modules.getGrEventsMib();
+    GrEventsMib mib = new GrEventsMib (GrEventsMib.getFactory())
+          //  modules.getGrEventsMib();
     GrEventsMib.EventsMIBEntryRowFactory factoryrow;
 
     public static final OID oidGrEventsMibTable =
             new OID(new int[] { 1,3,6,1,4,1,1,1});
 
 
-    public void updteMIB(){
-        insertEvents();
+     */
+
+    public void updateMIB(GrEventsMib mib){
+        insertEvents(mib);
         Eventos evs = new Eventos();
         Evento e = new Evento();
-        Data data = new Data();
-        MOTable table = mib.getEventsMIBEntry();
-        for(Integer i=1; i<=mib.getEventsMIBEntry().getModel().getRowCount();i++){
-           MOTableRow row =  table.getModel().getRow(new OID(i.toString()));
-           Variable id = row.getValue(1);
-           Variable nome = row.getValue(2);
-           Variable duracao = row.getValue(3); //duracao
-            Variable dt =  row.getValue(4); //deltaT
-            Variable dl = row.getValue(5); //dataLimite
-            Variable p = row.getValue(6); //passou
 
-            e.setId(id.toInt());
-            e.setNome(nome.toString());
-            e.setDuracao(duracao.toInt());
-            e.setDeltaT(dt.toString());
-            e.setDeltaLimite(dl.toString());
-            e.setPassou(duracao.toInt());
+
+        for(Integer i=1; i<=mib.getEventsMIBEntry().getModel().getRowCount();i++){ //verificar esta
+
+
+           Integer id = mib.getEventsMIBEntry().getModel().getRow(new OID(i.toString())).getId().toInt();
+           String nome = mib.getEventsMIBEntry().getModel().getRow(new OID(i.toString())).getNome().toString();
+           Integer duracao = mib.getEventsMIBEntry().getModel().getRow(new OID(i.toString())).getDuracao().toInt();
+            String dt =  mib.getEventsMIBEntry().getModel().getRow(new OID(i.toString())).getDeltaT().toString();
+            String dl = mib.getEventsMIBEntry().getModel().getRow(new OID(i.toString())).getDataLimite().toString();
+            Integer p = mib.getEventsMIBEntry().getModel().getRow(new OID(i.toString())).getPassou().toInt();
+
+            e.setId(id);
+            e.setNome(nome);
+            e.setDuracao(duracao);
+            e.setDeltaT(dt);
+            e.setDeltaLimite(dl);
+            e.setPassou(duracao);
 
             Data dataDt = new Data();
             dataDt.parseData(dt.toString());
@@ -49,36 +56,51 @@ public class AgentCon {
             Data dataDl = new Data();
             dataDl.parseData(dl.toString());
 
-            if(p.toInt() == 0 && !(dataDt.isZero())){
-              String dtRes = dataDt.decrementaData(dt.toString());
-              e.setDeltaT(dtRes);
+            Integer duracaoI =e.getDuracao();
+            String dtRes =e.getDeltaT();
+            String dlRes = e.getDeltaLimite();
+            Integer pI =e.getPassou();
+
+
+            if(p == 0 && !(dataDt.isZero())){
+                dtRes = dataDt.decrementaData(dt.toString());
+               e.setDeltaT(dtRes);
 
             }
-            if(p.toInt() == 0 && (dataDt.isZero())){
-                Integer duracaoI = duracao.toInt();
+            if(p == 0 && (dataDt.isZero())){
+                duracaoI = duracao;
                 duracaoI --;
-               String duracaoS = duracaoI.toString();
-               e.setDuracao(Integer.parseInt(duracaoS));
+             // String duracaoS = duracaoI.toString();
+               e.setDuracao(duracaoI);
             }
 
-            if(duracao.toInt() == 0){
-               Integer pI = 1;
-               String pS = pI.toString();
-               e.setPassou(Integer.parseInt(pS));
+            if(duracao == 0){
+               pI = 1;
+             //  String pS = pI.toString();
+               e.setPassou(pI);
             }
-            else if (p.toInt() == 1) {
-                String dtRes = dataDt.incrementaData(dt.toString());
-                String dlRes = dataDl.decrementaData(dl.toString());
+            else if (p == 1) {
+                dtRes = dataDt.incrementaData(dt.toString());
+                dlRes = dataDl.decrementaData(dl.toString());
                 e.setDeltaT(dtRes);
                 e.setDeltaLimite(dlRes);
             }
             if(dataDl.isZero()){
-                table.removeRow(new OID(i.toString()));
+                mib.getEventsMIBEntry().removeRow(new OID(i.toString()));
             }
             else {
                 //atualizar os valores na linha de cada coluna
+                mib.getEventsMIBEntry().getModel().getRow(
+                        new OID (i.toString())).setDuracao(new Integer32(duracaoI));
+                mib.getEventsMIBEntry().getModel().getRow(
+                        new OID (i.toString())).setDeltaT(new OctetString(dtRes));
+                mib.getEventsMIBEntry().getModel().getRow(
+                        new OID (i.toString())).setDataLimite(new OctetString(dlRes));
+                mib.getEventsMIBEntry().getModel().getRow(
+                        new OID (i.toString())).setPassou(new Integer32(pI));
 
-                evs.setEvento(e);
+
+                evs.setEvento(new Evento(e));
             }
             
         }
@@ -87,20 +109,21 @@ public class AgentCon {
 
     }
 
-    public void insertEvents(){ //fazer a população da mib
+    public void insertEvents(GrEventsMib mib){ //fazer a população da mib
         Eventos evs = new Eventos();
         evs.loadEventos();
 
         //Percorre o arraylist de eventos e adiciona um evento de cada vez
         for(Evento e : evs.getEventos()){
-           if(!mib.getEventsMIBEntry().getModel().containsRow(oidGrEventsMibTable.append(e.getId())));
-        //   mib.getEventsMIBEntry().addNewRow(oidGrEventsMibTable,e.vars());
-            OID oidIndex = new OID(e.getId().toString());
-            /*
-            MOTable table  = mib.getEventsMIBEntry();
-            table.createRow(new OID("1"), e.vars());
-            */
-            mib.getEventsMIBEntry().addRow(factoryrow.createRow(oidIndex,e.vars()));
+            try {
+                //  if(!mib.getEventsMIBEntry().getModel().containsRow(oidGrEventsMibTable.append(e.getId())));
+                OID oidIndex = new OID(e.getId().toString());
+                mib.getEventsMIBEntry().addNewRow(oidIndex, e.vars());
+
+            } catch (Exception ex){
+                ex.printStackTrace();
+            }
+
 
         }
     }

@@ -54,8 +54,8 @@ EventsMIBEntry ::= SEQUENCE {
 	id         INTEGER,
 	nome       DisplayString,
 	duracao    INTEGER,
-	deltaT     DateAndTime,
-	dataLimite DateAndTime,
+	deltaT     OCTET STRING,
+	dataLimite OCTET STRING,
 	passou     INTEGER }
 
 
@@ -90,7 +90,7 @@ duracao OBJECT-TYPE
 
 
 deltaT OBJECT-TYPE
-	SYNTAX  DateAndTime
+	SYNTAX  OCTET STRING
 	MAX-ACCESS read-write
 	STATUS  current
 	DESCRIPTION
@@ -100,7 +100,7 @@ deltaT OBJECT-TYPE
 
 
 dataLimite OBJECT-TYPE
-	SYNTAX  DateAndTime
+	SYNTAX  OCTET STRING
 	MAX-ACCESS read-write
 	STATUS  current
 	DESCRIPTION
