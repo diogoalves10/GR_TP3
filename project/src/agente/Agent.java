@@ -13,6 +13,7 @@ import java.text.*;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
+import manager.Eventos;
 import org.snmp4j.*;
 import org.snmp4j.agent.*;
 import org.snmp4j.agent.cfg.*;
@@ -161,11 +162,11 @@ public class Agent implements VariableProvider {
     // now continue agent setup and launch it.
     agent.run();
 
-    //agentCon.insertEvents(mib);
+    agentCon.insertEvents(mib);
     while(true) {
       try {
         agentCon.updateMIB(mib);
-        TimeUnit.SECONDS.sleep(60);
+        TimeUnit.SECONDS.sleep(10);
       } catch (InterruptedException ie){
         ie.printStackTrace();
       }

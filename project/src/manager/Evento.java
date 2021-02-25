@@ -11,7 +11,7 @@ public class Evento{
     private String nome;
     private Integer duracao;
     private String deltaT;
-    private String deltaLimite;
+    private String dataLimite;
     private Integer passou;
 
 
@@ -20,7 +20,7 @@ public class Evento{
         nome = "";
         duracao = 0;
         deltaT = "";
-        deltaLimite = "";
+        dataLimite = "";
         passou =0;
 
     }
@@ -30,7 +30,7 @@ public class Evento{
         nome = n;
         duracao = d;
         deltaT = dt;
-        deltaLimite =dl;
+        dataLimite =dl;
         passou = p;
     }
 
@@ -39,13 +39,13 @@ public class Evento{
         nome = e.getNome();
         duracao = e.getDuracao();
         deltaT = e.getDeltaT();
-        deltaLimite = e.getDeltaLimite();
+        dataLimite = e.getdataLimite();
     }
 
     public String getNome(){ return nome; }
     public Integer getDuracao(){ return duracao; }
     public String getDeltaT(){ return deltaT; }
-    public String getDeltaLimite(){ return deltaLimite; }
+    public String getdataLimite(){ return dataLimite; }
     public Integer getId() { return id; }
     public Integer getPassou() { return passou; }
 
@@ -53,7 +53,7 @@ public class Evento{
     public void setNome(String n){ nome = n; }
 
     public  void setDeltaT(String dt){ deltaT = dt; }
-    public  void setDeltaLimite(String dl){ deltaT = dl; }
+    public  void setdataLimite(String dl){ dataLimite = dl; }
     public void setId(Integer id) { this.id = id; }
     public void setDuracao(Integer duracao) { this.duracao = duracao; }
     public void setPassou(Integer passou) { this.passou = passou; }
@@ -66,9 +66,8 @@ public class Evento{
         variables[1] = new OctetString(nome);
         variables[2] = new Integer32(duracao);
         variables[3] = new OctetString(deltaT);
-        variables[4] = new OctetString(deltaLimite);
+        variables[4] = new OctetString(dataLimite);
         variables[5] = new Integer32(passou);
-
         return variables;
     }
 

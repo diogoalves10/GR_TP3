@@ -19,8 +19,14 @@ public class Eventos{
         eventos = new ArrayList<Evento>(e);
     }
 
-    public void setEvento(Evento e){
-        eventos.add(e);
+    public void setEvento(Evento e,Integer id) {
+
+        if (eventos.size() <= id) {
+            eventos.add(e);
+        }
+        else {
+            eventos.set(id-1,e);
+        }
     }
 
     public Evento getEvento(int i){
@@ -31,16 +37,20 @@ public class Eventos{
         return new ArrayList<Evento>(eventos);
     }
 
+    public void removeEvento(Integer id){
+        eventos.remove(id-1);
+    }
+
     public int search(Evento e){
 
         return eventos.indexOf(e);
     }
 
-    public void saveEventos(){
+    public void saveEventos(String nome){
         ObjectMapper mapper = new ObjectMapper();
 
         try{
-            File json = new File("/home/diogo/Desktop/GestãodeRedes/TP3/GR_TP3/project/eventosDB/eventos.json");
+            File json = new File("/home/diogo/Desktop/GestãodeRedes/TP3/GR_TP3/project/eventosDB/"+nome);
            Eventos e = new Eventos(eventos);
             mapper.defaultPrettyPrintingWriter().writeValue(json, e);
         }

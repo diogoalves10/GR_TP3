@@ -146,11 +146,11 @@ public class Manager {
         set(OIDsEventosTableNome[0],evento.getNome());
         set(OIDsEventosTableDuracao[0],evento.getDuracao().toString());
         set(OIDsEventosTableDeltaT[0],evento.getDeltaT());
-        set(OIDsEventosTableDataLimite[0],evento.getDeltaLimite());
+        set(OIDsEventosTableDataLimite[0],evento.getdataLimite());
 
         Boolean passou =  false;
         LocalDateTime DataT = LocalDateTime.parse(evento.getDeltaT());
-        LocalDateTime DataL = LocalDateTime.parse(evento.getDeltaLimite());
+        LocalDateTime DataL = LocalDateTime.parse(evento.getdataLimite());
 
         if(DataL.isAfter(DataT)){
             passou = true;

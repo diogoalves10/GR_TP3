@@ -2,12 +2,12 @@ package agente;
 
 public class Data {
 
-    int ano;
-    int mes;
-    int semana;
-    int dia;
-    int hora;
-    int minuto;
+    Integer ano;
+    Integer mes;
+    Integer semana;
+    Integer dia;
+    Integer hora;
+    Integer minuto;
 
     public Data(){
         ano = 0;
@@ -21,12 +21,12 @@ public class Data {
     public void parseData(String data){
 
         String [] splited= data.split("-");
-        ano = (Integer.parseInt(splited[0]));
-        mes = (Integer.parseInt(splited[1]));
-        semana = (Integer.parseInt(splited[2]));
-        dia = (Integer.parseInt(splited[3]));
-        hora = (Integer.parseInt(splited[4]));
-        minuto = (Integer.parseInt(splited[5]));
+        ano = (Integer.valueOf(data.split("-")[0]));
+        mes = (Integer.valueOf(splited[1]));
+        semana = (Integer.valueOf(splited[2]));
+        dia = (Integer.valueOf(splited[3]));
+        hora = (Integer.valueOf(splited[4]));
+        minuto = (Integer.valueOf(splited[5]));
 
     }
 
