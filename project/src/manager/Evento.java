@@ -34,6 +34,14 @@ public class Evento{
         passou = p;
     }
 
+    public Evento(Evento e){
+        id = e.getId();
+        nome = e.getNome();
+        duracao = e.getDuracao();
+        deltaT = e.getDeltaT();
+        deltaLimite = e.getDeltaLimite();
+    }
+
     public String getNome(){ return nome; }
     public Integer getDuracao(){ return duracao; }
     public String getDeltaT(){ return deltaT; }
