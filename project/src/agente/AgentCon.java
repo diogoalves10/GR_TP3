@@ -15,17 +15,6 @@ import java.awt.image.AreaAveragingScaleFilter;
 import java.util.ArrayList;
 
 public class AgentCon {
-    /*
-    Modules modules = new Modules();
-    GrEventsMib mib = new GrEventsMib (GrEventsMib.getFactory())
-          //  modules.getGrEventsMib();
-    GrEventsMib.EventsMIBEntryRowFactory factoryrow;
-
-    public static final OID oidGrEventsMibTable =
-            new OID(new int[] { 1,3,6,1,4,1,1,1});
-
-
-     */
 
     public void updateMIB(GrEventsMib mib){
         insertEvents(mib);
