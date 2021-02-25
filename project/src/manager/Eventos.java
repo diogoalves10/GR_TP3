@@ -20,13 +20,7 @@ public class Eventos{
     }
 
     public void setEvento(Evento e,Integer id) {
-
-        if (eventos.size() <= id) {
-            eventos.add(e);
-        }
-        else {
-            eventos.set(id-1,e);
-        }
+        eventos.set(id-1,e);
     }
 
     public Evento getEvento(int i){
@@ -39,6 +33,15 @@ public class Eventos{
 
     public void removeEvento(Integer id){
         eventos.remove(id-1);
+    }
+
+    public void removeEventos(ArrayList<Evento> listaApagar){
+        for(Evento e : listaApagar){
+                eventos.remove(e);
+        }
+        for(int i = 0; i < eventos.size(); i++){
+            eventos.get(i).setId(i+1);
+        }
     }
 
     public int search(Evento e){

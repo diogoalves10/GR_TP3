@@ -58,6 +58,18 @@ public class Evento{
     public void setDuracao(Integer duracao) { this.duracao = duracao; }
     public void setPassou(Integer passou) { this.passou = passou; }
 
+    public boolean equals(Evento e){
+        if(id == e.getId() &&
+            nome == e.getNome() &&
+            duracao == e.getDuracao() &&
+            deltaT == e.getDeltaT() &&
+            dataLimite == e.getdataLimite() &&
+            passou == e.getPassou()){
+                return true;
+        }
+        return false;
+    }
+
     public void decrDucacao(){ duracao--; }
 
     public Variable[] vars(){
