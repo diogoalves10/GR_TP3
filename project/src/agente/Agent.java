@@ -11,6 +11,7 @@ import agente.snmp.*;
 import java.io.*;
 import java.text.*;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 import org.snmp4j.*;
 import org.snmp4j.agent.*;
@@ -162,7 +163,15 @@ public class Agent implements VariableProvider {
 
     //agentCon.insertEvents(mib);
     while(true) {
-      agentCon.updateMIB(mib);
+      try {
+        agentCon.updateMIB(mib);
+        TimeUnit.SECONDS.sleep(1);
+      } catch (InterruptedException ie){
+        ie.printStackTrace();
+      }
+
+
+
     }
 
   }
