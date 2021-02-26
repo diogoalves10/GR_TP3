@@ -163,6 +163,7 @@ public class Agent implements VariableProvider {
     agent.run();
 
     agentCon.insertEvents(mib);
+    System.out.println("MIB :"+ mib.getEventsMIBEntry().getModel().getRowCount());
     while(true) {
       try {
         agentCon.updateMIB(mib);
@@ -174,6 +175,8 @@ public class Agent implements VariableProvider {
 
 
     }
+
+
 
   }
 

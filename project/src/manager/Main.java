@@ -4,20 +4,29 @@ import org.snmp4j.agent.mo.snmp.DateAndTime;
 
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.TreeMap;
 
 public class Main {
 
     public static void main(String[] args) throws IOException {
-      Manager m = new Manager();
-      Eventos evs = new Eventos();
-  //  Eventos events = new Eventos();
-      Scanner sc = new Scanner(System.in);
+        Manager m = new Manager();
+        Eventos evs = new Eventos();
+        //  Eventos events = new Eventos();
+        Scanner sc = new Scanner(System.in);
+
+
+        TreeMap<Integer,String> array = new TreeMap<>();
+
+        array = m.vbToArray(m.getBulk(m.OIDsEventosTable));
+        System.out.println("Tamanho do array : "+array.size());
+
+    }}
 /*
       Evento event = new Evento("Primeiro teste",5,"2021-02-21T18:04:0.0","2021-02-21T18:09:0.0",false);
 
       events.setEvento(event);
       events.saveEventos();
-*/
+
       System.out.println("Bem vindo ao gestor de eventos!");
 
       while(true) {
@@ -30,7 +39,8 @@ public class Main {
                 for (Evento e : evs.getEventos()) {
                      int id;
                      id = m.vbToArray(m.getBulk(m.OIDsEventosTable)).size();
-                     m.insert(id + 1, e);
+                     m
+                             .insert(id + 1, e);
                  }
                 break;
 
@@ -45,4 +55,6 @@ public class Main {
           }
       }
     }
-}
+
+ */
+

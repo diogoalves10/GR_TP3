@@ -20,8 +20,8 @@ public class Manager {
     private Snmp snmp = null;
 
 
-    OID[] OIDsEventosTable = {
-            new OID(new int[] {1,3,6,1,4,1,1,1}), // OID tabela de eventos
+   public OID[] OIDsEventosTable = {
+            new OID(new int[] {1,3,6,1,4,1,1,1,1}), // OID tabela de eventos
     };
 
     OID[] OIDsEventosTableId = {
@@ -125,7 +125,6 @@ public class Manager {
 
         return target;
     }
-
 
 
 }
