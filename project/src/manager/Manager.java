@@ -75,6 +75,7 @@ public class Manager {
         TreeMap <Integer,String> array = new TreeMap<>();
 
         for (VariableBinding[] vba : vbs) {
+
             for (VariableBinding vb : vba) {
                 Integer pid = vb.getOid().last();
                 array.put(pid,vb.toValueString());

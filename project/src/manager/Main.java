@@ -3,6 +3,7 @@ package manager;
 import org.snmp4j.agent.mo.snmp.DateAndTime;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.TreeMap;
 
@@ -10,15 +11,39 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         Manager m = new Manager();
-        Eventos evs = new Eventos();
+
+        ArrayList<Evento> evs = new ArrayList<Evento>();
         //  Eventos events = new Eventos();
         Scanner sc = new Scanner(System.in);
 
+        TreeMap<Integer,String> arrayids = new TreeMap<>(m.vbToArray(m.getBulk(m.OIDsEventosTableId)));
+        TreeMap<Integer,String> arraynomes = new TreeMap<>(m.vbToArray(m.getBulk(m.OIDsEventosTableNome)));
+        TreeMap<Integer,String> arrayduracao = new TreeMap<>(m.vbToArray(m.getBulk(m.OIDsEventosTableDuracao)));
+        TreeMap<Integer,String> deltaT = new TreeMap<>(m.vbToArray(m.getBulk(m.OIDsEventosTableDeltaT)));
+        TreeMap<Integer,String> dataLimite = new TreeMap<>(m.vbToArray(m.getBulk(m.OIDsEventosTableDataLimite)));
+        TreeMap<Integer,String> passou = new TreeMap<>(m.vbToArray(m.getBulk(m.OIDsEventosTablePassou)));
 
-        TreeMap<Integer,String> array = new TreeMap<>();
+        TreeMap finalNome = arraynomes;
+        TreeMap finalDuracao = arrayduracao;
+        TreeMap finalDeltaT = deltaT;
+        TreeMap finalDataLimite = dataLimite;
+        TreeMap finalpassou  = passou;
 
-        array = m.vbToArray(m.getBulk(m.OIDsEventosTable));
-        System.out.println("Tamanho do array : "+array.size());
+        arrayids.forEach((key, value) -> {
+            Evento e = new Evento();
+            e.setId(Integer.parseInt(value));
+            e.setNome(finalNome.get(key).toString());
+            e.setDuracao((Integer.parseInt(String.valueOf(finalDuracao.get(key)))));
+            e.setDeltaT(finalDeltaT.get(key).toString());
+            e.setdataLimite(finalDataLimite.get(key).toString());
+            e.setPassou(Integer.parseInt(String.valueOf(finalpassou.get(key))));
+
+            evs.add(e);
+        });
+
+       for(Evento e : evs){
+           System.out.println("Event id: "+ e.getNome());
+       }
 
     }}
 /*

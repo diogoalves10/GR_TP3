@@ -198,11 +198,15 @@ public class Agent implements VariableProvider {
    */
   protected void registerMIBs()
   {
+    /*
     if (modules == null) {
       modules = new Modules(getFactory());
     }
+
+     */
     try {
-      modules.registerMOs(server, null);
+      mib.registerMOs(server,null);
+      //modules.registerMOs(server, null);
       //|:AgenPro|=registerContext
       //|AgenPro:|
     }
