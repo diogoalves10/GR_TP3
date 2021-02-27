@@ -163,7 +163,7 @@ public class Agent implements VariableProvider {
     agent.run();
 
     agentCon.insertEvents(mib);
-    
+
     while(true) {
       try {
         agentCon.updateMIB(mib);
