@@ -46,7 +46,7 @@ public class Main {
         evs.add(c);
         evs.add(p);
          */
-        System.out.println("Benvindo ao Gestor de eventos!");
+        System.out.println("Bem vindo ao Gestor de eventos!");
         boolean exit = false;
         while(exit == false){
             System.out.println("O que deseja fazer?");
@@ -54,12 +54,12 @@ public class Main {
             System.out.println("2 -> Listar eventos já terminados.");
             System.out.println("3 -> Listar eventos em curso.");
             System.out.println("4 -> Listar eventos ainda por vir.");
-            System.out.println("5 -> exit;");
+            System.out.println("5 -> Sair;");
             int opt = sc.nextInt();
             switch(opt){
                 case 1:
                     System.out.println("Qual o nome do evento desejado?");
-                    String name = sc.next();
+                    String name = sc.nextLine();
                     Eventos.searchByName(name, evs);
                     break;
                 case 2:
