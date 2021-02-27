@@ -1,7 +1,7 @@
 package manager;
 
-import agente.snmp.GrEventsMib;
-import org.snmp4j.agent.mo.snmp.DisplayString;
+//import agente.snmp.GrEventsMib;
+//import org.snmp4j.agent.mo.snmp.DisplayString;
 import org.snmp4j.smi.*;
 
 import java.util.GregorianCalendar;
@@ -23,6 +23,14 @@ public class Evento{
         dataLimite = "";
         passou =0;
 
+    }
+    public Evento(int i, String n, int d, String dt, String dl, int p ){
+        id = i;
+        nome = n;
+        duracao = d;
+        deltaT = dt;
+        dataLimite = dl;
+        passou = p;
     }
 
     public Evento(Integer i, String n, int d, String dt, String dl, Integer p){

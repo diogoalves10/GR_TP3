@@ -88,4 +88,42 @@ public class Eventos{
             ioe.printStackTrace();
         }
     }
+
+    public static void searchByName(String name, ArrayList<Evento> es){
+        for(Evento e :  es){
+            if(e.getNome().equals(name)){
+                System.out.println("Desired event: " + e.toString());
+            }
+        }
+    }
+
+    public static void searchFutureEvents(ArrayList<Evento> es){
+        for(Evento e : es){
+            Data dt = new Data();
+            dt.parseData(e.getDeltaT());
+            if(!dt.isZero() && e.getPassou() == 0){
+                System.out.println("Future event: " + e.toString());
+            }
+        }
+    }
+    public static void searchCurrentEvents(ArrayList<Evento> es){
+        for(Evento e : es){
+            Data dt = new Data();
+            dt.parseData(e.getDeltaT());
+            if(dt.isZero() && e.getPassou() == 0){
+                System.out.println("Current event: " + e.toString());
+            }
+        }
+    }
+    public static void searchPastEvents(ArrayList<Evento> es){
+        for(Evento e : es){
+            Data dt = new Data();
+            dt.parseData(e.getDeltaT());
+            if(e.getPassou() == 1){
+                System.out.println("Past event: " + e.toString());
+            }
+        }
+    }
+
+
 }
