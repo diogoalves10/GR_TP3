@@ -92,4 +92,8 @@ public class Evento{
         return variables;
     }
 
+    public String toString(){
+        return "nome: " + nome + " | Duracao: " + duracao + " | Delta T: " + deltaT + " | Data Limite: " + dataLimite + " | Passou: " + passou;
+    }
+
 }
