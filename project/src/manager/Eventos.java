@@ -102,7 +102,9 @@ public class Eventos{
             Data dt = new Data();
             dt.parseData(e.getDeltaT());
             if(!dt.isZero() && e.getPassou() == 0){
-                System.out.println("Future event: " + e.toString());
+                Data d = new Data(e.getDeltaT());
+                System.out.println("O " + e.getNome() + " está quase, faltam: " + d.getAno() + " anos " + d.getMes() + " meses " + d.getSemana() + " semanas " + d.getDia() + " dias " + d.getHora() + " horas " + d.getMinuto() + " minutos");
+
             }
         }
     }
@@ -111,7 +113,7 @@ public class Eventos{
             Data dt = new Data();
             dt.parseData(e.getDeltaT());
             if(dt.isZero() && e.getPassou() == 0){
-                System.out.println("Current event: " + e.toString());
+                System.out.println("O evento" + e.getNome() + " está a acontecer, faltam " + e.getDuracao() + " para o fim!");
             }
         }
     }
@@ -120,7 +122,8 @@ public class Eventos{
             Data dt = new Data();
             dt.parseData(e.getDeltaT());
             if(e.getPassou() == 1){
-                System.out.println("Past event: " + e.toString());
+                Data d = new Data(e.getDeltaT());
+                System.out.println("O " + e.getNome() + " já acabou há: " + d.getAno() + " anos " + d.getMes() + " meses " + d.getSemana() + " semanas " + d.getDia() + " dias " + d.getHora() + " horas " + d.getMinuto() + " minutos");
             }
         }
     }

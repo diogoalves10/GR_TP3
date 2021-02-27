@@ -18,6 +18,58 @@ public class Data {
         minuto = 0;
     }
 
+    public Data(String d){
+        this.parseData(d);
+    }
+
+    public Integer getAno() {
+        return ano;
+    }
+
+    public void setAno(Integer ano) {
+        this.ano = ano;
+    }
+
+    public Integer getMes() {
+        return mes;
+    }
+
+    public void setMes(Integer mes) {
+        this.mes = mes;
+    }
+
+    public Integer getSemana() {
+        return semana;
+    }
+
+    public void setSemana(Integer semana) {
+        this.semana = semana;
+    }
+
+    public Integer getDia() {
+        return dia;
+    }
+
+    public void setDia(Integer dia) {
+        this.dia = dia;
+    }
+
+    public Integer getHora() {
+        return hora;
+    }
+
+    public void setHora(Integer hora) {
+        this.hora = hora;
+    }
+
+    public Integer getMinuto() {
+        return minuto;
+    }
+
+    public void setMinuto(Integer minuto) {
+        this.minuto = minuto;
+    }
+
     public void parseData(String data){
 
         String [] splited= data.split("-");
