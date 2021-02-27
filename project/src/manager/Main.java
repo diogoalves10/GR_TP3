@@ -46,32 +46,32 @@ public class Main {
         evs.add(c);
         evs.add(p);
          */
-        System.out.println("Welcome to SNMP event manager!");
+        System.out.println("Benvindo ao Gestor de eventos!");
         boolean exit = false;
         while(exit == false){
-            System.out.println("What would you like to do?");
-            System.out.println("1 -> Search event by name;");
-            System.out.println("2 -> Search events still to come;");
-            System.out.println("3 -> search events currently going;");
-            System.out.println("4 -> search events already finished;");
+            System.out.println("O que deseja fazer?");
+            System.out.println("1 -> Procurar eventos por nome.");
+            System.out.println("2 -> Listar eventos já terminados.");
+            System.out.println("3 -> Listar eventos em curso.");
+            System.out.println("4 -> Listar eventos ainda por vir.");
             System.out.println("5 -> exit;");
             int opt = sc.nextInt();
             switch(opt){
                 case 1:
-                    System.out.println("What is the desired event name?");
+                    System.out.println("Qual o nome do evento desejado?");
                     String name = sc.next();
                     Eventos.searchByName(name, evs);
                     break;
                 case 2:
-                    System.out.println("Past events list:");
+                    System.out.println("Lista de eventos terminados:");
                     Eventos.searchPastEvents(evs);
                     break;
                 case 3:
-                    System.out.println("Present events list:");
+                    System.out.println("Lista de eventos em curso:");
                     Eventos.searchCurrentEvents(evs);
                     break;
                 case 4:
-                    System.out.println("Future events list:");
+                    System.out.println("Lista de eventos ainda por vir:");
                     Eventos.searchFutureEvents(evs);
                     break;
                 default:
