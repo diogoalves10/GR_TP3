@@ -59,7 +59,8 @@ public class Main {
             switch(opt){
                 case 1:
                     System.out.println("Qual o nome do evento desejado?");
-                    String name = sc.nextLine();
+                    Scanner scanner = new Scanner(System.in);
+                    String name = scanner.nextLine();
                     System.out.println("Nome do evento a procurar: " + name);
                     Eventos.searchByName(name, evs);
                     break;

@@ -97,7 +97,7 @@ public class Eventos{
             }
         }
         if(!aux.getNome().equals("")){
-            System.out.println("Evento desejado é: " + aux.toString());
+            System.out.println("Evento desejado : " + aux.toString());
         }
         else{
             System.out.println("Não existem eventos com esse nome!");
@@ -120,7 +120,7 @@ public class Eventos{
             Data dt = new Data();
             dt.parseData(e.getDeltaT());
             if(dt.isZero() && e.getPassou() == 0){
-                System.out.println("O evento" + e.getNome() + " está a acontecer, faltam " + e.getDuracao() + " para o fim!");
+                System.out.println("O evento " + e.getNome() + " está a acontecer, faltam " + e.getDuracao() + "minutos para o fim!");
             }
         }
     }
