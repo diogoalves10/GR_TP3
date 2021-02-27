@@ -60,6 +60,7 @@ public class Main {
                 case 1:
                     System.out.println("Qual o nome do evento desejado?");
                     String name = sc.nextLine();
+                    System.out.println("Nome do evento a procurar: " + name);
                     Eventos.searchByName(name, evs);
                     break;
                 case 2:

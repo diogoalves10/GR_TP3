@@ -90,10 +90,17 @@ public class Eventos{
     }
 
     public static void searchByName(String name, ArrayList<Evento> es){
+        Evento aux = new Evento();
         for(Evento e :  es){
             if(e.getNome().equals(name)){
-                System.out.println("Desired event: " + e.toString());
+                aux = new Evento(e);
             }
+        }
+        if(!aux.getNome().equals("")){
+            System.out.println("Evento desejado é: " + aux.toString());
+        }
+        else{
+            System.out.println("Não existem eventos com esse nome!");
         }
     }
 
