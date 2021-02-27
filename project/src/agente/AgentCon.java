@@ -2,10 +2,7 @@ package agente;
 
 
 import agente.snmp.GrEventsMib;
-import agente.snmp.Modules;
 import manager.*;
-import org.snmp4j.agent.mo.MOTable;
-import org.snmp4j.agent.mo.MOTableRow;
 import org.snmp4j.smi.Integer32;
 import org.snmp4j.smi.OID;
 import org.snmp4j.smi.OctetString;
@@ -22,15 +19,7 @@ public class AgentCon {
        evs.loadEventos();
        Evento listaApagar =  new Evento();
         boolean apagar = false;
-       /*
-       atualiza-se o ficheiro por iteração
-       guardar os ids para apagar num arrayList
-       no fim do for
-       apagar os ids do ficheiro
-       e rescrever o ficheiro com os ids corrigidos
-       limpar a mib
-       popular a mib com o ficheiro
-        */
+
 
         for(Integer i=1;i<=evs.getEventos().size();i++){ //verificar esta
             Evento e = new Evento(evs.getEvento(i-1));
@@ -101,7 +90,7 @@ public class AgentCon {
         }
 
         if(apagar==true) {
-            System.out.println("Entrei no lista apagar");
+
             evs.removeEventos(listaApagar);
             evs.saveEventos("eventos.json");
             for (Integer j = 1; j <= mib.getEventsMIBEntry().getModel().getRowCount(); j++) {

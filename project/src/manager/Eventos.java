@@ -37,7 +37,7 @@ public class Eventos{
 
     public void removeEventos(Evento apagarEvento){
         eventos.remove(apagarEvento.getId()-1);
-        System.out.println("Removi o "+apagarEvento.getId());
+
         for(Integer i =0; i<eventos.size();i++){
             eventos.get(i).setId(i+1);
         }

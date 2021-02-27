@@ -67,7 +67,7 @@ public class Agent implements VariableProvider {
   private AgentCon agentCon = new AgentCon();
 
   // supported MIBs
-  protected Modules modules;
+  //protected Modules modules;
 
 
   public Agent(Map args) {
@@ -162,8 +162,7 @@ public class Agent implements VariableProvider {
     // now continue agent setup and launch it.
     agent.run();
 
-    agentCon.insertEvents(mib);
-    System.out.println("MIB :"+ mib.getEventsMIBEntry().getModel().getRowCount());
+
     while(true) {
       try {
         agentCon.updateMIB(mib);
